@@ -1,0 +1,1 @@
+Flight#    FDate   DTime   ATime    DepartCity   DestCity AvailableSeats
