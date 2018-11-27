@@ -1,14 +1,17 @@
 package groupproject;
 
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 
@@ -46,10 +49,15 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private TitledPane seatMapPane;
+    
 
     @FXML
     private TitledPane flightListPane;
+    
+        @FXML
+        private TextArea allFlightTextArea;
 
+   
     @FXML
     private TitledPane allReservationsPane;
 
@@ -103,5 +111,19 @@ public class FXMLDocumentController implements Initializable {
     br.close();
     fr.close();  
    }
+    
+    public void displayAllFlights () throws IOException
+    {
+        FileReader fr = new FileReader("flights.txt");
+        int i = 1;
+        var seatChart = new ArrayList<Character>();
+        
+        while((i=fr.read()) != -1)
+            seatChart.add((char)i);
+        String newSeatChart = seatChart.toString();
+        String finalString = newSeatChart.replaceAll(",","\0");
+        
+        allFlightTextArea.setText(finalString);
+    }
     
 }
