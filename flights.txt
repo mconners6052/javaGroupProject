@@ -1,4 +1,6 @@
-Flight#	FDate DTime	ATime	DepartCity	DestCity	AvailableSeats
+Flight#	FDate		DTime	ATime	DepartCity	DestCity	AvailableSeats
 
 
-345	132354	3456	3456	e	r	34
+000001	Jun 1 2019	1200	2345	Orlando		Honolulu	69
+
+000002	Jun 1 2019	0200	1000	Gainesville	Portland	40

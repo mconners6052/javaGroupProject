@@ -1,9 +1,11 @@
-public class Reservation 
+package groupproject;
+
+public class Passenger 
 
 {
    private String passengerId, passengerName, seatNumber, flightNumber;
    
-   Reservation (String passengerId, String passengerName, String seatNumber, String flightNumber)
+   Passenger (String passengerId, String passengerName, String seatNumber, String flightNumber)
    {
        this.passengerId = passengerId;
        this.passengerName = passengerName;
@@ -11,7 +13,7 @@ public class Reservation
        this.flightNumber = flightNumber;
    }
    
-    Reservation ()
+    Passenger ()
    {
        this.passengerId = "0000000000";
        this.passengerName = "Titania McGee";

@@ -6,15 +6,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 
 public class FXMLDocumentController implements Initializable {
+    
+    
     
     @FXML
     private TitledPane addFlightPane;
@@ -86,16 +86,22 @@ public class FXMLDocumentController implements Initializable {
       String arrivalTime = arrivalTimeLabel.getText();
       String flightDate = flightDateLabel.getText();
       String formattedString = String.format("%n%s\t%s\t%s\t%s\t%s\t%s\t%s", 
-    flightNumber, flightDate, departureTime, arrivalTime, departureCity, destinationCity, availableSeats);
+      flightNumber, flightDate, departureTime, arrivalTime, departureCity, destinationCity, availableSeats);
       
+      printToFlights(formattedString);
+      Flight newFlight = new Flight(Integer.parseInt(availableSeats), flightNumber, departureCity, 
+      destinationCity, flightDate, departureTime, arrivalTime);
+    }
+    
+    public void printToFlights (String formattedString) throws IOException
+   {
     FileWriter fr = new FileWriter("flights.txt", true);
     BufferedWriter br = new BufferedWriter(fr);
     PrintWriter pr = new PrintWriter(br);
     pr.println(formattedString);
     pr.close();
     br.close();
-    fr.close();
-      
-    }
+    fr.close();  
+   }
     
 }

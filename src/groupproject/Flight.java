@@ -1,9 +1,11 @@
+package groupproject;
+
 public class Flight 
 {
     private int availableSeats;
     private String flightNumber, departureCity, destinationCity, flightDate, departureTime, arrivalTime;
     
-    Flight (int availableSeats, String flightNumber, String departureCity, 
+    public Flight (int availableSeats, String flightNumber, String departureCity, 
         String destinationCity, String flightDate, String departureTime, String arrivalTime)
     {
         this.availableSeats = availableSeats;
@@ -15,7 +17,7 @@ public class Flight
         this.arrivalTime = arrivalTime;
     }
     
-      Flight ()
+      public Flight ()
     {
         this.availableSeats = 0;
         this.flightNumber = "000000";
@@ -25,6 +27,8 @@ public class Flight
         this.departureTime = "12:00 a.m.";
         this.arrivalTime = "12:00 a.m.";
     }
+      
+      
       
     
 }
