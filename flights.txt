@@ -1,0 +1,4 @@
+Flight#	FDate DTime	ATime	DepartCity	DestCity	AvailableSeats
+
+
+345	132354	3456	3456	e	r	34
