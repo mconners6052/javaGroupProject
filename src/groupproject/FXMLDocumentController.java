@@ -2,7 +2,6 @@ package groupproject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+
+
 
 public class FXMLDocumentController implements Initializable 
 {
@@ -113,6 +114,7 @@ public class FXMLDocumentController implements Initializable
       printToFlights(formattedString);
       Flight newFlight = new Flight(Integer.parseInt(availableSeats), flightNumber, departureCity, 
       destinationCity, flightDate, departureTime, arrivalTime);
+      GroupProject.flights.add(newFlight);
     }
     
     public void printToFlights (String formattedString) throws IOException
@@ -181,14 +183,6 @@ public class FXMLDocumentController implements Initializable
         allReservationsTextArea.setText(passengers);
     }
     
-    public static void getFlights (Path filePath)
-   {
-        
-   }
-   
-    public static void getPassengers (Path filePath)
-   {
-        
-   }
+
     
 }
