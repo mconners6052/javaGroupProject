@@ -1,23 +1,28 @@
 package groupproject;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 
-public class FXMLDocumentController implements Initializable {
-    
-    
+public class FXMLDocumentController implements Initializable 
+{
     
     @FXML
     private TitledPane addFlightPane;
@@ -43,9 +48,15 @@ public class FXMLDocumentController implements Initializable {
         @FXML
         private TextField flightDateLabel;
         
+        @FXML
+        private Label flightFeedbackLabel;
+        
 
     @FXML
     private TitledPane newReservationPane;
+    
+        @FXML
+        private Label reservationFeedbackLabel;
 
     @FXML
     private TitledPane seatMapPane;
@@ -60,6 +71,9 @@ public class FXMLDocumentController implements Initializable {
    
     @FXML
     private TitledPane allReservationsPane;
+       
+        @FXML
+        private TextArea allReservationsTextArea;
 
     @FXML
     private TitledPane specificFlightReservations;
@@ -93,7 +107,7 @@ public class FXMLDocumentController implements Initializable {
       String departureTime = departureTimeLabel.getText();
       String arrivalTime = arrivalTimeLabel.getText();
       String flightDate = flightDateLabel.getText();
-      String formattedString = String.format("%n%s\t%s\t%s\t%s\t%s\t%s\t%s", 
+      String formattedString = String.format("%n%s\t%s\t\t%s\t\t\t%s\t\t\t%s\t\t\t%s\t%s", 
       flightNumber, flightDate, departureTime, arrivalTime, departureCity, destinationCity, availableSeats);
       
       printToFlights(formattedString);
@@ -112,18 +126,69 @@ public class FXMLDocumentController implements Initializable {
     fr.close();  
    }
     
+    public void printToPassengers (String formattedString) throws IOException
+   {
+    FileWriter fr = new FileWriter("passengers.txt", true);
+    BufferedWriter br = new BufferedWriter(fr);
+    PrintWriter pr = new PrintWriter(br);
+    pr.println(formattedString);
+    pr.close();
+    br.close();
+    fr.close();  
+   }
+    
     public void displayAllFlights () throws IOException
     {
-        FileReader fr = new FileReader("flights.txt");
-        int i = 1;
-        var seatChart = new ArrayList<Character>();
+        Path filePath = Paths.get("flights.txt");
+        Charset charset = Charset.forName("US-ASCII");
+        String line = null;
+        String flights = "";
+        try (BufferedReader br = Files.newBufferedReader(filePath, charset))
+        {
+            while ((line = br.readLine()) != null)
+            {
+                flights += "\n" + line;
+            }
+        }
+        catch (IOException x)
+        {
+         System.err.format("IOException: %s%n", x);
+        }
+       
         
-        while((i=fr.read()) != -1)
-            seatChart.add((char)i);
-        String newSeatChart = seatChart.toString();
-        String finalString = newSeatChart.replaceAll(",","\0");
-        
-        allFlightTextArea.setText(finalString);
+        allFlightTextArea.setText(flights);
     }
+    
+        public void displayAllPassengers () throws IOException
+    {
+        Path filePath = Paths.get("passengers.txt");
+        Charset charset = Charset.forName("US-ASCII");
+        String line = null;
+        String passengers = "";
+        try (BufferedReader br = Files.newBufferedReader(filePath, charset))
+        {
+            while ((line = br.readLine()) != null)
+            {
+                passengers += "\n" + line;
+            }
+        }
+        catch (IOException x)
+        {
+         System.err.format("IOException: %s%n", x);
+        }
+       
+        
+        allReservationsTextArea.setText(passengers);
+    }
+    
+    public static void getFlights (Path filePath)
+   {
+        
+   }
+   
+    public static void getPassengers (Path filePath)
+   {
+        
+   }
     
 }
