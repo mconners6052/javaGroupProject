@@ -50,10 +50,13 @@ public class GroupProject extends Application
         {
             while ((line = br.readLine()) != null)
             {
+                if((!line.contains("Flight#")) && !line.contains(""))
+               {
                String delims = "[\t]+";
                String[] parse = line.split(delims);
                Passenger p = new Passenger(parse[0], parse[1], parse[2], parse[3]);
                reservations.add(p);
+               }
             }
         }
         catch (IOException x)
@@ -72,10 +75,9 @@ public class GroupProject extends Application
         {
             while ((line = br.readLine()) != null)
             {
-                String s = line;
-               if(!s.contains("Flight#"))
+               if((!line.contains("Flight#")) && !line.contains(""))
                {
-                String delims = "[\t\t]+";
+                String delims = "[\t]+";
                 String[] parse = line.split(delims);
                 Flight f = new Flight(Integer.parseInt(parse[6]), parse[0], 
                 parse[5], parse[6], parse[1], parse[2], parse[3]);
