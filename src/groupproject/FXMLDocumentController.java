@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -51,7 +52,10 @@ public class FXMLDocumentController implements Initializable
         
         @FXML
         private Label flightFeedbackLabel;
+  
         
+        
+          
 
     @FXML
     private TitledPane newReservationPane;
@@ -59,8 +63,15 @@ public class FXMLDocumentController implements Initializable
         @FXML
         private Label reservationFeedbackLabel;
 
+    
+        
+        
     @FXML
     private TitledPane seatMapPane;
+        @FXML
+        private ComboBox<String> flightComboBox;
+    
+    
     
 
     @FXML
@@ -70,14 +81,20 @@ public class FXMLDocumentController implements Initializable
         private TextArea allFlightTextArea;
 
    
+        
+        
     @FXML
     private TitledPane allReservationsPane;
        
         @FXML
         private TextArea allReservationsTextArea;
+        
+        
 
     @FXML
     private TitledPane specificFlightReservations;
+    
+    
     
 
     @FXML
@@ -115,6 +132,8 @@ public class FXMLDocumentController implements Initializable
       Flight newFlight = new Flight(Integer.parseInt(availableSeats), flightNumber, departureCity, 
       destinationCity, flightDate, departureTime, arrivalTime);
       GroupProject.flights.add(newFlight);
+      newFlight.setSeats(newFlight.getAvailableSeats());
+      newFlight.createSeatChartFile();
     }
     
     public void printToFlights (String formattedString) throws IOException
@@ -183,6 +202,24 @@ public class FXMLDocumentController implements Initializable
         allReservationsTextArea.setText(passengers);
     }
     
-
+     public ArrayList<String> getFlightNumbers ()
+     {
+         ArrayList<String> flightNumbers = new ArrayList<String>();
+         for (int index = 0; index < GroupProject.flights.size(); index++)
+         {
+             flightNumbers.add(GroupProject.flights.get(index).getFlightNumber());
+         }
+         return flightNumbers;
+     }
+     
+     public void setSeatChartComboBox ()
+     {
+         var flightNumbers = getFlightNumbers();   
+         for (int index = 0; index < flightNumbers.size(); index++)
+         {
+             flightComboBox.getItems().add(index, flightNumbers.get(index));
+         }
+         
+     }
     
 }

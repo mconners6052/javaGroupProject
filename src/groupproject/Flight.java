@@ -1,10 +1,13 @@
 package groupproject;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class Flight 
 {
     private int availableSeats;
     private String flightNumber, departureCity, destinationCity, flightDate, departureTime, arrivalTime;
-    char[][] seats;
+    char[][] seats = new char[10][8];
     
     public Flight (int availableSeats, String flightNumber, String departureCity, 
         String destinationCity, String flightDate, String departureTime, String arrivalTime)
@@ -29,9 +32,25 @@ public class Flight
         this.arrivalTime = "12:00 a.m.";
     }
       
-      public static void createSeatChartFile (Flight flight)
+      public void createSeatChartFile () throws IOException
       {
-      
+          String fileName = flightNumber + ".txt";
+        try (PrintWriter writer = new PrintWriter(fileName, "US-ASCII")) 
+        {
+           for (int index = 0; index < 10; index++)
+           {
+               writer.print((index + 1) + "\t");
+               for (int jndex = 0; jndex < 8; jndex++)
+               {
+                   writer.print(seats[index][jndex]);
+               }
+               writer.println();
+           }
+        }
+        catch (IOException x)
+        {
+            System.err.println("IO Error.");
+        }
       }
       
       public int getAvailableSeats ()
@@ -46,20 +65,19 @@ public class Flight
       
       public void setSeats (int availableSeats)
       {
-          int index, jndex;
-          int counter = 0;
-          
-          for (index = 0; index < 10; index++)
-          {
-              for (jndex = 0; index < 8; jndex++)
-              {
-                  if (counter < availableSeats)
-                      seats[index][jndex] = 'X';
-                  else
-                    seats[index][jndex] = (char) ('A' + jndex);
-                  counter++;
-              }
-          }
+       int takenSeats = 80 - availableSeats;
+       
+       for (int index = 0; index <= 9; index++)
+       {
+           for ( int jndex = 0; jndex <= 7; jndex++)
+           {
+               if (takenSeats > 0)
+                   seats[index][jndex] = 'X';
+               else
+                   seats[index][jndex] = (char) ('A' + jndex);
+               takenSeats--;
+           }
+       }
       }
       
       public char[][] getSeats ()
@@ -67,20 +85,15 @@ public class Flight
           return seats;
       }
       
-      public boolean seatIsTaken (int row, int column, char[][] seats)
+      public boolean seatIsTaken (int row, int column)
       {
           if (seats[row][column] == 'X') 
               return true;
           return false;
       }
       
-      public void generateSeatChart(char[][] seats, String flightNumber) 
+      String getFlightNumber ()
       {
-          String fileName = flightNumber + ".txt";
-          String seatChart;
-          
-          
+          return flightNumber;
       }
-      
-    
 }
