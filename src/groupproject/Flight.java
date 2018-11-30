@@ -27,9 +27,9 @@ public class Flight
         this.flightNumber = "000000";
         this.departureCity = "Nowhere";
         this.destinationCity = "Nowhere";
-        this.flightDate = "Jan 1, 1970";
-        this.departureTime = "12:00 a.m.";
-        this.arrivalTime = "12:00 a.m.";
+        this.flightDate = "Jan 01 1970";
+        this.departureTime = "0000";
+        this.arrivalTime = "0000";
     }
       
       public void createSeatChartFile () throws IOException
@@ -96,4 +96,5 @@ public class Flight
       {
           return flightNumber;
       }
+      
 }

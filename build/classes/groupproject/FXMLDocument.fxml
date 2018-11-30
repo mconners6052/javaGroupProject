@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -50,27 +49,27 @@
                         <Label layoutX="11.0" layoutY="92.0" text="Please enter your desired flight." />
                         <Label layoutX="11.0" layoutY="122.0" text="Please enter your desired row." />
                         <Label layoutX="11.0" layoutY="153.0" text="Please specify your desired seat in your selected row." />
-                        <TextArea layoutX="15.0" layoutY="186.0" prefHeight="200.0" prefWidth="433.0" />
+                        <TextArea fx:id="reservationSeatChartTextArea" layoutX="15.0" layoutY="186.0" prefHeight="200.0" prefWidth="433.0" />
                         <TextField fx:id="nameField" layoutX="299.0" layoutY="28.0" />
                         <TextField fx:id="IDField" layoutX="299.0" layoutY="58.0" />
                         <TextField fx:id="rowField" layoutX="299.0" layoutY="118.0" />
                         <TextField fx:id="rowField1" layoutX="299.0" layoutY="149.0" />
                         <Label fx:id="passengerFeedbackLabel" layoutX="15.0" layoutY="392.0" />
-                        <ComboBox layoutX="299.0" layoutY="88.0" prefWidth="150.0" />
-                        <Button fx:id="newReservationButton" layoutX="168.0" layoutY="397.0" mnemonicParsing="false" text="Make Reservation" />
+                        <Button fx:id="newReservationButton" layoutX="168.0" layoutY="397.0" mnemonicParsing="false" onMouseClicked="#addNewPassengers" text="Make Reservation" />
+                        <TextField fx:id="flightField" layoutX="299.0" layoutY="88.0" />
                      </children></AnchorPane>
             </content>
                <font>
                   <Font name="3ds" size="12.0" />
                </font>
           </TitledPane>
-          <TitledPane fx:id="seatMapPane" animated="false" onMouseClicked="#setSeatChartComboBox" text="Display passenger seat map">
+          <TitledPane fx:id="seatMapPane" animated="false" text="Display passenger seat map">
             <content>
               <AnchorPane>
                      <children>
                         <Label layoutX="14.0" layoutY="29.0" text="Choose a flight. " />
-                        <ComboBox fx:id="flightComboBox" layoutX="118.0" layoutY="25.0" prefWidth="150.0" promptText="Select a flight" />
                         <TextArea layoutX="11.0" layoutY="73.0" prefHeight="144.0" prefWidth="514.0" />
+                        <TextField fx:id="seatMapField" layoutX="119.0" layoutY="25.0" />
                      </children></AnchorPane>
             </content>
                <font>
@@ -104,8 +103,8 @@
                   <AnchorPane>
                      <children>
                         <Label layoutX="31.0" layoutY="19.0" text="Choose a flight. " />
-                        <ComboBox fx:id="flightComboBox1" layoutX="151.0" layoutY="15.0" prefWidth="150.0" promptText="Select a flight" />
                         <TextArea layoutX="22.0" layoutY="58.0" prefHeight="144.0" prefWidth="514.0" />
+                        <TextField fx:id="reservationsField" layoutX="130.0" layoutY="15.0" />
                      </children></AnchorPane>
                </content>
                <font>

@@ -91,4 +91,16 @@ public class GroupProject extends Application
         }   
    }
     
+    public static Flight getFlight (String flightNumber)
+    {
+                for (int index = 0; index < GroupProject.flights.size(); index++)
+         {
+             if (flightNumber.equals(GroupProject.flights.get(index).getFlightNumber()))
+             {
+                 return GroupProject.flights.get(index);
+             }
+         }
+             return null;
+    }
+    
 }

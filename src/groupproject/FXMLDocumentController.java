@@ -62,14 +62,32 @@ public class FXMLDocumentController implements Initializable
     
         @FXML
         private Label reservationFeedbackLabel;
+        
+        @FXML
+        private TextField nameField;
+        
+        @FXML
+        private TextField flightField;
+        
+        @FXML
+        private TextField IDField;
+        
+        @FXML
+        private TextField rowField;
+        
+        @FXML
+        private TextField columnField;
+        
+        @FXML
+        private TextArea reservationSeatChartTextArea;
+        
 
     
         
         
     @FXML
     private TitledPane seatMapPane;
-        @FXML
-        private ComboBox<String> flightComboBox;
+
     
     
     
@@ -115,6 +133,44 @@ public class FXMLDocumentController implements Initializable
     {
         System.exit(0);
     }
+    
+    public void addNewPassengers () throws IOException
+     {
+         String name = nameField.getText();
+         String ID = IDField.getText();
+         int row = Integer.parseInt(rowField.getText());
+         int column = Integer.parseInt(columnField.getText());
+         String flightNumber = flightField.getText();
+         
+         if ((name == "") || (ID == "") || (row == 0) || (column == 0) || (flightNumber == ""))
+         {
+             reservationFeedbackLabel.setText("You left one or more areas empty.");
+             return;
+         }
+         
+         else if (!flightExists(flightNumber))
+         {
+            reservationFeedbackLabel.setText("Sorry, we couldn't find that flight. Please try again.");
+            return;
+         }
+         else
+         {
+             Flight flight = GroupProject.getFlight(flightNumber);
+             if (GroupProject.getFlight(flightNumber).seatIsTaken(row, column))
+             {
+                reservationFeedbackLabel.setText("Sorry, tht seat is taken. Try another seat. ");
+                return;
+             }
+             else
+             {
+                 flight.seats[row][column] = 'X';
+                 flight.createSeatChartFile();
+                 flight.setAvailableSeats(flight.getAvailableSeats() - 1);
+                 reservationFeedbackLabel.setText("Seat reserved.");
+                 displaySeatChart(flight, reservationSeatChartTextArea);
+             }
+         }
+     }
     
     public void addNewFlight () throws IOException
     {
@@ -201,6 +257,30 @@ public class FXMLDocumentController implements Initializable
         
         allReservationsTextArea.setText(passengers);
     }
+        
+    public void displaySeatChart (Flight flight, TextArea ta) throws IOException
+    {
+        
+        String chartPath = flight.getFlightNumber() + ".txt";
+        Path filePath = Paths.get(chartPath);
+        Charset charset = Charset.forName("US-ASCII");
+        String line = null;
+        String seatChart = "";
+        try (BufferedReader br = Files.newBufferedReader(filePath, charset))
+        {
+            while ((line = br.readLine()) != null)
+            {
+                seatChart += "\n" + line;
+            }
+        }
+        catch (IOException x)
+        {
+         System.err.format("IOException: %s%n", x);
+        }
+       
+        
+        ta.setText(seatChart);
+    }
     
      public ArrayList<String> getFlightNumbers ()
      {
@@ -212,14 +292,19 @@ public class FXMLDocumentController implements Initializable
          return flightNumbers;
      }
      
-     public void setSeatChartComboBox ()
+     public boolean flightExists (String flightNumber)
      {
-         var flightNumbers = getFlightNumbers();   
-         for (int index = 0; index < flightNumbers.size(); index++)
+         for (int index = 0; index < GroupProject.flights.size(); index++)
          {
-             flightComboBox.getItems().add(index, flightNumbers.get(index));
+             if (flightNumber.equals(GroupProject.flights.get(index).getFlightNumber()))
+             {
+                 return true;
+             }
          }
-         
+         return false;
      }
+     
+     
+     
     
 }
