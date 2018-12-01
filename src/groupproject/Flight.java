@@ -87,6 +87,11 @@ public class Flight
       
       public boolean seatIsTaken (int row, int column)
       {
+          if ((row < 0) || (row > 9) || (column > 7) || (column < 0))
+          {
+              return true;
+          }
+          
           if (seats[row][column] == 'X') 
               return true;
           return false;

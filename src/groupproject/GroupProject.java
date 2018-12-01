@@ -80,7 +80,7 @@ public class GroupProject extends Application
                 String delims = "[\t]+";
                 String[] parse = line.split(delims);
                 Flight f = new Flight(Integer.parseInt(parse[6]), parse[0], 
-                parse[5], parse[6], parse[1], parse[2], parse[3]);
+                parse[4], parse[5], parse[1], parse[2], parse[3]);
                 flights.add(f);
                }
             }

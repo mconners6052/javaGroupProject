@@ -1,7 +1,5 @@
-Flight#	FDate			DTime		ATime		DepartCity		DestCity		AvailableSeats
-
-
+Flight#	FDate			DTime		ATime		DepartCity		DestCity		AvailableSeats 
 000001	Jun 1 2019		1200			2345			Orlando			Honolulu			69
-
 000002	Jun 1 2019		0200			1000			Gainesville		Portland			40
-000003	Jun 01 19		1234			2345			Augusta			Dallas	34
+000003	Jun 1 2019		1234			2345			Augusta			Dallas				34
+

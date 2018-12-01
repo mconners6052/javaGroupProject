@@ -8,7 +8,7 @@
     <update check="always"/>
     <resources>
         <j2se version="10.0.1+" href="http://java.sun.com/products/autodl/j2se"/>
-        <jar href="GroupProject.jar" size="11084" download="eager"/>
+        <jar href="GroupProject.jar" size="11133" download="eager"/>
     </resources>
     <jfx:javafx-desc width="800" height="600" main-class="groupproject.GroupProject" name="GroupProject"/>
 </jnlp>

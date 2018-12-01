@@ -61,7 +61,7 @@ public class FXMLDocumentController implements Initializable
     private TitledPane newReservationPane;
     
         @FXML
-        private Label reservationFeedbackLabel;
+        private Label passengerFeedbackLabel;
         
         @FXML
         private TextField nameField;
@@ -138,35 +138,35 @@ public class FXMLDocumentController implements Initializable
      {
          String name = nameField.getText();
          String ID = IDField.getText();
-         int row = Integer.parseInt(rowField.getText());
-         int column = Integer.parseInt(columnField.getText());
+         String row = rowField.getText();
+         String column = columnField.getText();
          String flightNumber = flightField.getText();
          
-         if ((name == "") || (ID == "") || (row == 0) || (column == 0) || (flightNumber == ""))
+                  if ((name == "") || (ID == "") || (row == "") || (column == "") || (flightNumber == ""))
          {
-             reservationFeedbackLabel.setText("You left one or more areas empty.");
+             passengerFeedbackLabel.setText("You left one or more areas empty.");
              return;
          }
          
          else if (!flightExists(flightNumber))
          {
-            reservationFeedbackLabel.setText("Sorry, we couldn't find that flight. Please try again.");
+            passengerFeedbackLabel.setText("Sorry, we couldn't find that flight. Please try again.");
             return;
          }
          else
          {
              Flight flight = GroupProject.getFlight(flightNumber);
-             if (GroupProject.getFlight(flightNumber).seatIsTaken(row, column))
+             if (GroupProject.getFlight(flightNumber).seatIsTaken(Integer.parseInt(row), Integer.parseInt(column)))
              {
-                reservationFeedbackLabel.setText("Sorry, tht seat is taken. Try another seat. ");
+                passengerFeedbackLabel.setText("Sorry, tht seat is taken. Try another seat. ");
                 return;
              }
              else
              {
-                 flight.seats[row][column] = 'X';
+                 flight.seats[Integer.parseInt(row) - 1][Integer.parseInt(column) - 'A' - 1] = 'X';
                  flight.createSeatChartFile();
                  flight.setAvailableSeats(flight.getAvailableSeats() - 1);
-                 reservationFeedbackLabel.setText("Seat reserved.");
+                 passengerFeedbackLabel.setText("Seat reserved.");
                  displaySeatChart(flight, reservationSeatChartTextArea);
              }
          }
@@ -177,7 +177,7 @@ public class FXMLDocumentController implements Initializable
       String flightNumber = flightNumberLabel.getText();
       String departureCity = departureCityLabel.getText();
       String destinationCity = destinationCityLabel.getText();
-      String availableSeats = availableSeatsLabel.getText();
+      String availableSeats = (availableSeatsLabel.getText().equals("")) ? "0" : availableSeatsLabel.getText();
       String departureTime = departureTimeLabel.getText();
       String arrivalTime = arrivalTimeLabel.getText();
       String flightDate = flightDateLabel.getText();
@@ -294,17 +294,19 @@ public class FXMLDocumentController implements Initializable
      
      public boolean flightExists (String flightNumber)
      {
-         for (int index = 0; index < GroupProject.flights.size(); index++)
+         ArrayList<Flight> flights = GroupProject.flights;
+         
+         for (int index = 0; index < flights.size(); index++)
          {
-             if (flightNumber.equals(GroupProject.flights.get(index).getFlightNumber()))
+             if (flightNumber.equals(flights.get(index).getFlightNumber()))
              {
                  return true;
+             }
+             else
+             {
+                return false;
              }
          }
          return false;
      }
-     
-     
-     
-    
 }
