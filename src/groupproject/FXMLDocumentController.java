@@ -138,11 +138,11 @@ public class FXMLDocumentController implements Initializable
      {
          String name = nameField.getText();
          String ID = IDField.getText();
-         String row = rowField.getText();
-         String column = columnField.getText();
+         int row = Integer.parseInt(rowField.getText());
+         char column = columnField.getText().charAt(0);
          String flightNumber = flightField.getText();
          
-                  if ((name == "") || (ID == "") || (row == "") || (column == "") || (flightNumber == ""))
+                  if ((name == "") || (ID == "") || (row == 0) || (column == '\0') || (flightNumber == ""))
          {
              passengerFeedbackLabel.setText("You left one or more areas empty.");
              return;
@@ -156,14 +156,14 @@ public class FXMLDocumentController implements Initializable
          else
          {
              Flight flight = GroupProject.getFlight(flightNumber);
-             if (GroupProject.getFlight(flightNumber).seatIsTaken(Integer.parseInt(row), Integer.parseInt(column)))
+             if (GroupProject.getFlight(flightNumber).seatIsTaken(row - 1, column - 'A' - 1))
              {
-                passengerFeedbackLabel.setText("Sorry, tht seat is taken. Try another seat. ");
+                passengerFeedbackLabel.setText("Sorry, that seat is taken. Try another seat. ");
                 return;
              }
              else
              {
-                 flight.seats[Integer.parseInt(row) - 1][Integer.parseInt(column) - 'A' - 1] = 'X';
+                 flight.seats[row - 1][column - 'A' - 1] = 'X';
                  flight.createSeatChartFile();
                  flight.setAvailableSeats(flight.getAvailableSeats() - 1);
                  passengerFeedbackLabel.setText("Seat reserved.");

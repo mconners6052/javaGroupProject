@@ -19,6 +19,7 @@ public class Flight
         this.flightDate = flightDate;
         this.departureTime = departureTime;
         this.arrivalTime = arrivalTime;
+        setSeats(availableSeats);
     }
     
       public Flight ()

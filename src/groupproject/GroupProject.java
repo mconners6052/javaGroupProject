@@ -50,7 +50,7 @@ public class GroupProject extends Application
         {
             while ((line = br.readLine()) != null)
             {
-                if((!line.contains("Flight#")) && !line.contains(""))
+                if((!line.contains("Flight#")) && !line.equals(""))
                {
                String delims = "[\t]+";
                String[] parse = line.split(delims);
@@ -75,7 +75,7 @@ public class GroupProject extends Application
         {
             while ((line = br.readLine()) != null)
             {
-               if((!line.contains("Flight#")) && !line.contains(""))
+               if((!line.contains("Flight#")) && !line.equals(""))
                {
                 String delims = "[\t]+";
                 String[] parse = line.split(delims);
