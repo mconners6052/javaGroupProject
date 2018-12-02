@@ -1,5 +1,6 @@
 package groupproject;
 
+import static groupproject.GroupProject.reservations;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -87,6 +88,10 @@ public class FXMLDocumentController implements Initializable
         
     @FXML
     private TitledPane seatMapPane;
+        @FXML
+        private TextField seatMapField;
+        @FXML
+        private TextArea seatMapTextArea;
 
     
     
@@ -111,6 +116,12 @@ public class FXMLDocumentController implements Initializable
 
     @FXML
     private TitledPane specificFlightReservations;
+        @FXML
+        private TextArea specificReservationTextArea;
+        @FXML
+        private TextField reservationsField;
+        @FXML
+        private Button specificReservationButton;
     
     
     
@@ -129,6 +140,43 @@ public class FXMLDocumentController implements Initializable
         
     }
 
+    
+    public void getReservationsForFlight () throws IOException
+    {
+      String flightNumber = reservationsField.getText();
+      if (flightNumber.equals(""))
+      {
+          specificReservationTextArea.setText("Please enter a flight number.");
+          return;
+      }
+      if (!flightExists(flightNumber))
+      {
+         specificReservationTextArea.setText("Sorry, we don't recognize this flight."); 
+      }
+       Charset charset = Charset.forName("US-ASCII");
+       Path filePath = Paths.get("passengers.txt");
+       String line = null;
+       String results = "";
+    
+       BufferedReader br = Files.newBufferedReader(filePath, charset);
+   
+       while ((line = br.readLine()) != null)
+            {
+                if(line.contains(flightNumber))
+               {
+                  results += "\n" + line;
+               }
+            }
+       if (results.equals(""))
+        {
+        specificReservationTextArea.setText("No reservations currently.");
+        }
+       else
+       {  
+       specificReservationTextArea.setText(results);
+       }
+    }
+    
     public void exitProgram ()
     {
         System.exit(0);
@@ -163,11 +211,14 @@ public class FXMLDocumentController implements Initializable
              }
              else
              {
-                 flight.seats[row - 1][column - 'A' - 1] = 'X';
+                 flight.seats[row - 1][column - 'A'] = 'X';
                  flight.createSeatChartFile();
                  flight.setAvailableSeats(flight.getAvailableSeats() - 1);
                  passengerFeedbackLabel.setText("Seat reserved.");
                  displaySeatChart(flight, reservationSeatChartTextArea);
+                 
+                 String formattedString = "\n" + ID + "\t" + name + "\t" + rowField.getText() + columnField.getText() + "\t\t\t" + flightNumber;
+                 printToPassengers(formattedString);
              }
          }
      }
@@ -214,6 +265,13 @@ public class FXMLDocumentController implements Initializable
     fr.close();  
    }
     
+    public void displaySeatChartForFlight () throws IOException
+    {
+        String flightNumber = seatMapField.getText();
+        displaySeatChart(GroupProject.getFlight(flightNumber), seatMapTextArea);
+        
+    }
+    
     public void displayAllFlights () throws IOException
     {
         Path filePath = Paths.get("flights.txt");
@@ -256,6 +314,7 @@ public class FXMLDocumentController implements Initializable
        
         
         allReservationsTextArea.setText(passengers);
+        
     }
         
     public void displaySeatChart (Flight flight, TextArea ta) throws IOException

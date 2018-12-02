@@ -103,4 +103,27 @@ public class Flight
           return flightNumber;
       }
       
+      String getFlightDate()
+      {
+          return flightDate;
+      }
+      
+      String getDepartureTime ()
+      {
+          return departureTime;
+      }
+      
+        String getArrivalTime ()
+      {
+          return arrivalTime;
+      }
+        
+          String getDepartureCity ()
+      {
+          return departureCity;
+      }
+          String getDestinationCity ()
+      {
+          return destinationCity;
+      }
 }

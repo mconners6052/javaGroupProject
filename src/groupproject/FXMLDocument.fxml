@@ -68,8 +68,9 @@
               <AnchorPane>
                      <children>
                         <Label layoutX="14.0" layoutY="29.0" text="Choose a flight. " />
-                        <TextArea layoutX="11.0" layoutY="73.0" prefHeight="144.0" prefWidth="514.0" />
+                        <TextArea fx:id="seatMapTextArea" layoutX="11.0" layoutY="73.0" prefHeight="144.0" prefWidth="514.0" />
                         <TextField fx:id="seatMapField" layoutX="119.0" layoutY="25.0" />
+                        <Button fx:id="seatChartButton" layoutX="329.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#displaySeatChartForFlight" text="Find Seat Chart" />
                      </children></AnchorPane>
             </content>
                <font>
@@ -103,8 +104,9 @@
                   <AnchorPane>
                      <children>
                         <Label layoutX="31.0" layoutY="19.0" text="Choose a flight. " />
-                        <TextArea layoutX="22.0" layoutY="58.0" prefHeight="144.0" prefWidth="514.0" />
+                        <TextArea fx:id="specificReservationTextArea" layoutX="22.0" layoutY="58.0" prefHeight="144.0" prefWidth="514.0" />
                         <TextField fx:id="reservationsField" layoutX="130.0" layoutY="15.0" />
+                        <Button fx:id="specificReservationsButton" layoutX="316.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#getReservationsForFlight" text="Generate Reservations" />
                      </children></AnchorPane>
                </content>
                <font>
