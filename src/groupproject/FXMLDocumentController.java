@@ -149,10 +149,6 @@ public class FXMLDocumentController implements Initializable
           specificReservationTextArea.setText("Please enter a flight number.");
           return;
       }
-      if (!flightExists(flightNumber))
-      {
-         specificReservationTextArea.setText("Sorry, we don't recognize this flight."); 
-      }
        Charset charset = Charset.forName("US-ASCII");
        Path filePath = Paths.get("passengers.txt");
        String line = null;
