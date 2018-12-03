@@ -27,6 +27,8 @@ import javafx.scene.control.TitledPane;
 public class FXMLDocumentController implements Initializable 
 {
     
+    // FXML components for Add Flight Panes. 
+    
     @FXML
     private TitledPane addFlightPane;
     
@@ -55,7 +57,7 @@ public class FXMLDocumentController implements Initializable
         private Label flightFeedbackLabel;
   
         
-        
+    // FXML components for Add Reservations Panes.    
           
 
     @FXML
@@ -83,7 +85,7 @@ public class FXMLDocumentController implements Initializable
         private TextArea reservationSeatChartTextArea;
         
 
-    
+    // FXML components for Generate Seat Chart Panes. 
         
         
     @FXML
@@ -94,7 +96,7 @@ public class FXMLDocumentController implements Initializable
         private TextArea seatMapTextArea;
 
     
-    
+    // FXML components for generate flight list pane.
     
 
     @FXML
@@ -104,6 +106,7 @@ public class FXMLDocumentController implements Initializable
         private TextArea allFlightTextArea;
 
    
+   // FXML components for listing all reservations. 
         
         
     @FXML
@@ -112,7 +115,7 @@ public class FXMLDocumentController implements Initializable
         @FXML
         private TextArea allReservationsTextArea;
         
-        
+   // FXML components for finding specific reservations.
 
     @FXML
     private TitledPane specificFlightReservations;
@@ -124,7 +127,7 @@ public class FXMLDocumentController implements Initializable
         private Button specificReservationButton;
     
     
-    
+    // FXML components for closing the program.
 
     @FXML
     private TitledPane exitPane;
@@ -140,6 +143,8 @@ public class FXMLDocumentController implements Initializable
         
     }
 
+    
+    //Gets reservations from a given flight from reservations.txt.
     
     public void getReservationsForFlight () throws IOException
     {
@@ -173,10 +178,14 @@ public class FXMLDocumentController implements Initializable
        }
     }
     
+    // Closes the program. 
+    
     public void exitProgram ()
     {
         System.exit(0);
     }
+    
+    // Add passengers to passengers.txt, and updates flight chart.
     
     public void addNewPassengers () throws IOException
      {
@@ -219,6 +228,8 @@ public class FXMLDocumentController implements Initializable
          }
      }
     
+    // Adds flights to flights.txt.
+    
     public void addNewFlight () throws IOException
     {
       String flightNumber = flightNumberLabel.getText();
@@ -238,6 +249,8 @@ public class FXMLDocumentController implements Initializable
       newFlight.setSeats(newFlight.getAvailableSeats());
       newFlight.createSeatChartFile();
     }
+    
+    // Adds flight to GroupProject.flights array list. 
     
     public void printToFlights (String formattedString) throws IOException
    {
@@ -312,6 +325,8 @@ public class FXMLDocumentController implements Initializable
         allReservationsTextArea.setText(passengers);
         
     }
+    
+    //Fills a text area with the seat chart of a given flight. 
         
     public void displaySeatChart (Flight flight, TextArea ta) throws IOException
     {
@@ -337,7 +352,9 @@ public class FXMLDocumentController implements Initializable
         ta.setText(seatChart);
     }
     
-     public ArrayList<String> getFlightNumbers ()
+    // Gets flight numbers from flights.txt
+    
+    public ArrayList<String> getFlightNumbers ()
      {
          ArrayList<String> flightNumbers = new ArrayList<String>();
          for (int index = 0; index < GroupProject.flights.size(); index++)
@@ -346,6 +363,8 @@ public class FXMLDocumentController implements Initializable
          }
          return flightNumbers;
      }
+     
+     // Searches GroupProject.flights for flight numbers to check if the flight exists. 
      
      public boolean flightExists (String flightNumber)
      {
